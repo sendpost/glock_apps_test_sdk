@@ -1,0 +1,267 @@
+swagger: '2.0'
+info:
+  title: glockapps
+  description: glock apps api for inboxing
+  version: '0.1'
+host: spamtest.glockapps.com
+basePath: /api/v1
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /CreateTest:
+    post:
+      description: Create a test
+      parameters: 
+        - in: query
+          name: apikey
+          description: the api key for you
+          required: true
+          type: string
+        - in: query
+          name: groups
+          description: User groups
+          required: true
+          type: integer
+        - in: query
+          name: providers
+          description: providers for api
+          required: true
+          type: string
+        - in: query
+          name: v
+          description: version
+          required: true
+          type: integer
+      responses:
+        200:
+          description: All IP details fetch success
+          schema:
+            $ref: '#/definitions/models.createtest'
+  /GetTestResult:
+    get:
+      description: Get test result
+      parameters:
+        - in: query
+          name: apikey
+          description: the api key for you
+          required: true
+          type: string
+        - in: query
+          name: TestId,
+          description: the testid for you
+          required: true
+          type: string
+      responses:
+        200:
+          description: All IP details fetch success
+          schema:
+            $ref: '#/definitions/models.testresult'
+  /GetProviders:
+    get:
+      description: Get test result
+      parameters:
+        - in: query
+          name: apikey
+          description: the api key for you
+          required: true
+          type: string
+        - in: query
+          name: v
+          description: version
+          required: true
+          type: integer
+      responses:
+        200:
+          description: All
+          schema:
+            $ref: '#/definitions/models.getprovider'
+definitions:
+  models.createtest:
+    type: object
+    properties:
+      TestID:
+        type: string
+      InsertHeader:
+        type: string
+      InsertInBody:
+        type: string
+      SeedList:
+        type: array
+        items:
+          type: string
+  models.testresult:
+    type: object
+    properties:
+      TestID: 
+        type: string
+      Created: 
+        type: string
+      Finished: 
+        type: boolean
+      DKIM: 
+        type: string
+      SPF: 
+        type: string
+      Subject: 
+        type: string
+      MailFrom: 
+        type: string
+      Inboxes: 
+        type: array
+        items: 
+          type: object
+          properties: 
+            ISP: 
+              type: string
+            iType: 
+              type: string
+            Received: 
+              type: string
+            Visible: 
+              type: boolean
+            HeaderID: 
+              type: string
+            Delay: 
+              type: string
+      SpamAssassin: 
+        type: object
+        properties: 
+          Active: 
+            type: boolean
+          Finished: 
+            type: boolean
+          Score: 
+            type: number
+          Headers: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                Score: 
+                  type: number
+                Tag: 
+                  type: string
+                Description: 
+                  type: string
+      GoogleApps: 
+        type: object
+        properties: 
+          Active: 
+            type: boolean
+          Finished: 
+            type: boolean
+          Spam: 
+            type: boolean
+          Phishy: 
+            type: boolean
+      Barracuda: 
+        type: object
+        properties: 
+          Active: 
+            type: boolean
+          Score: 
+            type: number
+          Headers: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                Score: 
+                  type: number
+                Tag: 
+                  type: string
+                Description: 
+                  type: string
+      Reason: 
+        type: string
+      ReasonExtra: 
+        type: string
+      SenderIP: 
+        type: string
+      SenderScore: 
+        type: string
+      SenderHostName: 
+        type: string
+      Helo: 
+        type: string
+      ReturnPath: 
+        type: string
+      ReverseHelo: 
+        type: string
+      ReverseIP: 
+        type: string
+      DNSBL: 
+        type: object
+        properties: 
+          finished: 
+            type: boolean
+          ipListed: 
+            type: boolean
+          dnsbl: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                Server: 
+                  type: string
+                Status: 
+                  type: integer
+                  format: int32
+                txt: 
+                  type: string
+      ExternalUserID: 
+        type: string
+      Meta: 
+        type: string
+      Stats: 
+        type: object
+        properties: 
+          Inbox: 
+            type: integer
+            format: int32
+          Other: 
+            type: integer
+            format: int32
+          Spam: 
+            type: integer
+            format: int32
+          NotDelivered: 
+            type: integer
+            format: int32
+          InboxRate: 
+            type: number
+          SpamRate: 
+            type: number
+          BounceRate: 
+            type: number
+  models.getprovider:
+    type: object
+    properties:
+      Groups: 
+        type: array
+        items: 
+          type: object
+          properties: 
+            GroupID: 
+              type: integer
+              format: int32
+            GroupName: 
+              type: string
+            ISPs: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  id: 
+                    type: integer
+                    format: int32
+                  name: 
+                    type: string
+                  domain: 
+                    type: string
+
+
