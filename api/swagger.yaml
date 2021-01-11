@@ -56,7 +56,7 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "Apikey"
-      - name: "TestId,"
+      - name: "TestId"
         in: "query"
         description: "the testid for you"
         required: true

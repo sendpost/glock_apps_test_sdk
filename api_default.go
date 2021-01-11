@@ -233,7 +233,7 @@ func (a *DefaultApiService) GetTestResultGet(ctx context.Context, apikey string,
 	localVarFormParams := url.Values{}
 
 	localVarQueryParams.Add("apikey", parameterToString(apikey, ""))
-	localVarQueryParams.Add("TestId,", parameterToString(testId, ""))
+	localVarQueryParams.Add("TestId", parameterToString(testId, ""))
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
 
